@@ -1,6 +1,8 @@
 package com.example.lims_android.data.network;
 
 import com.example.lims_android.data.model.AssetMasterResponse;
+import com.example.lims_android.data.model.AssetMastersApiResponse;
+import com.example.lims_android.data.model.AssetsResponse;
 import com.example.lims_android.data.model.LendsApiResponse;
 
 import java.util.List;
@@ -55,4 +57,13 @@ public interface ApiService {
             @Path("lend_ulid") String lendUlid,
             @Body CreateReturnRequest returnRequest
     );
+
+    @GET("assets/masters")
+    Call<AssetMastersApiResponse> listAssetMasters(
+            @Query("name") String nameQuery,
+            @Query("genre") int genre
+    );
+
+    @GET("assets")
+    Call<AssetsResponse> listAssets(@Query("asmi") long assetMasterId);
 }

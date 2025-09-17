@@ -2,6 +2,9 @@ package com.example.lims_android.data.repository;
 
 import com.example.lims_android.data.model.Asset;
 import com.example.lims_android.data.model.AssetMasterResponse;
+import com.example.lims_android.data.model.AssetMastersApiResponse;
+import com.example.lims_android.data.model.AssetResponse;
+import com.example.lims_android.data.model.AssetsResponse;
 import com.example.lims_android.data.model.ErrorBody;
 import com.example.lims_android.data.model.LendResponse;
 import com.example.lims_android.data.model.LendsApiResponse;
@@ -138,6 +141,32 @@ public class AssetRepository {
             public void onFailure(retrofit2.Call<Void> call, Throwable t) {
                 callback.onFailure(new Exception(t));
             }
+        });
+    }
+
+    public void searchAssetMasters(String query, int genreId, RepositoryCallback<List<AssetMasterResponse>> callback) {
+        apiService.listAssetMasters(query,genreId).enqueue(new retrofit2.Callback<AssetMastersApiResponse>() {
+            @Override
+            public void onResponse(retrofit2.Call<AssetMastersApiResponse> call, retrofit2.Response<AssetMastersApiResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    callback.onSuccess(response.body().getItems());
+                } else { /* ...エラー処理... */ }
+            }
+            @Override
+            public void onFailure(retrofit2.Call<AssetMastersApiResponse> call, Throwable t) { /* ...エラー処理... */ }
+        });
+    }
+
+    public void listAssetsForMaster(long assetMasterId, RepositoryCallback<List<AssetResponse>> callback) {
+        apiService.listAssets(assetMasterId).enqueue(new retrofit2.Callback<AssetsResponse>() {
+            @Override
+            public void onResponse(retrofit2.Call<AssetsResponse> call, retrofit2.Response<AssetsResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    callback.onSuccess(response.body().getItems());
+                } else { /* ...エラー処理... */ }
+            }
+            @Override
+            public void onFailure(retrofit2.Call<AssetsResponse> call, Throwable t) { /* ...エラー処理... */ }
         });
     }
 }
