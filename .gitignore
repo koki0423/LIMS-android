@@ -13,3 +13,12 @@
 .externalNativeBuild
 .cxx
 local.properties
+
+# 証明書関係
+/app/src/main/res/raw/*.crt
+/app/src/main/res/raw/*.pem
+/app/src/main/res/raw/*.cer
+/app/src/main/res/raw/*.der
+
+# フォルダ維持用のダミーを許可
+!/app/src/main/res/raw/gitkeep.txt
