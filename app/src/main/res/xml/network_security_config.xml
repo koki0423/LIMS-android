@@ -3,7 +3,10 @@
     <base-config>
         <trust-anchors>
             <!-- rootCAを使うことでサーバーのIPが変わってもTLS使えるようにする -->
-            <certificates src="@raw/root_ca" />
+            <!-- 本番用 -->
+            <certificates src="@raw/root_ca_local_net" />
+            <!-- 開発用 -->
+            <!-- <certificates src="@raw/root_ca_doly_wifi" />-->
             <!-- systemはAndroid標準の証明書を許可するために必要 -->
             <certificates src="system" />
         </trust-anchors>
